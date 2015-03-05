@@ -9,7 +9,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "writter"
+let colors_name = "writer"
 
 hi Normal      guifg=#47b8b8
 hi Statement   guifg=#47b8b8 gui=bold
