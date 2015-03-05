@@ -1,4 +1,4 @@
-colorscheme writter
+colorscheme writer
 "colorsheme peachpuff 
 highlight lCursor guifg=NONE guibg=DarkYellow
 set foldmethod=syntax
