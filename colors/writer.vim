@@ -1,6 +1,6 @@
 " Vim color file
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last Change:	2001 Jul 23
+" Maintainer:	Nikolay Konovalow <major.kolz@gmail.com>
+" Last Change:	2015 Mar 9
 
 " First remove all existing highlighting.
 set background=light
