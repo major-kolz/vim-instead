@@ -53,7 +53,7 @@ syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\
 
 " catch errors caused by wrong parenthesis and wrong curly brackets or
 " keywords placed outside their respective blocks
-syn region luaParen      transparent                     start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement
+syn region luaParen transparent start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl,INSTEADSpecial,luaSpecial
 syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl
 
 syn match  luaParenError ")"
@@ -63,14 +63,14 @@ syn match  luaBraceError "}"
   " INSTEAD text's control words. 
 syn match INSTEADStringControl contained "\[cut\]"
 syn match INSTEADStringControl contained "\[upd\]"
-syn match INSTEADStringControl contained "{"
+"syn match INSTEADStringControl contained "{"
   " Links: '{xact|text}', '{xact(arg)|text}', '{xact(' .. arg .. ')|text}'
 syn match INSTEADStringControl contained "{[a-zA-Z0-9_)(]\+[(|]"
   " Link's )| part
 syn match INSTEADStringControl contained ")|"
  " Link's text
 syn match INSTEADStringControl contained "{[а-яА-я"]*}"
-syn match INSTEADStringControl contained "}"
+"syn match INSTEADStringControl contained "}"
 syn match INSTEADSpecial contained "\^" 
 syn match INSTEADSpecial contained "\""
 
@@ -408,7 +408,6 @@ if version >= 508 || !exists("did_lua_syntax_inits")
   " Delimiter, Special (не вижу чем эти двое отличаются; SpecialChar похоже)
   " Type, TypeDef 
   " Exception, Boolean (как Statement выглядит)
-  " Character (тот же String)
   " PreProc, Include
   "
   delcommand HiLink

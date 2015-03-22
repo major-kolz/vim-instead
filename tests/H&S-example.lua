@@ -1,6 +1,7 @@
 --$Name: Highlighting and syntax example$
 --$Version: 0x01$
 --$Author: Николай Коновалов$
+-- Не пытайтесь запускать этот файл как игру!
 
 instead_version "2.0.3";
 require 'format'              -- Предлагаю использовать одинарные кавычки для "технических строк"
@@ -20,7 +21,7 @@ main = room {
 		[[Ссылки на {xact|объекты} подсвечиваются особым образом: только идентификатор и скобки. Определение допускает использование {talk_to_me(hi)|аргументов} и нижнего подчеркивания. Более того: определение можно {talk_to_me(]] .. visited(first_game_room) .. [[)|их можно разрывать}!]] ..
 		"Ошибки в ссылках теперь легче отследить: {xactТекст}, {talk to me(txt)|Текст}",
 	obj = {
-		xact( 'xact', "Вот для этого подсветка строк в одинарных кавычках и отличается" ),
+		xact( 'xact', "Обратили внимание как разнятся строки, заключенные в одинарные и обычные кавычки?" ),
 		xact( 'talk_to_me', function(s, txt) p(txt) end ),
 		'obj1';
 	},
@@ -32,15 +33,17 @@ first = obj{
 		do = function(f)				-- Как насчет функций и прочих блоков?
 			f()
 			local b = {} 
+			local c = { {} }
 			if f {'is', 'okay', '?'} then
 				b = {}
 			end
-			while true do
+			while false do
 				b = {}
 			end
 			for i, v in ipairs {'some', 'values'} do
 				print( i, v )
 			end
+			funcall( "str", {'one','two',3} )
 		end
 		seq1 = '\teou\n\t{',
 		seq2 = "\toau\n\t{",			-- Подсветка в строках не работает
@@ -52,18 +55,6 @@ first = obj{
 		for field, _ in ipairs(s) do
 			print(field)
 		end
-	end,
-};
-
-third = obj{
-	nam = "Было бы удобнее, если бы snippets переключали язык",
-	var {
-		empty = {},				-- Подсветка фигурных скобок работает только в строках, можно не беспокоиться
-		usage = 1;
-	},
-	dsc = [[В {случае словосочетаний} подсвечиваются лишь скобки.]],
-	act = function(s)
-		local empty = {}		-- Стоило проверить и функциональный блок, правда ведь?
 	end,
 };
 
