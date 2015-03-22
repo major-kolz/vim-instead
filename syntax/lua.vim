@@ -63,14 +63,14 @@ syn match  luaBraceError "}"
   " INSTEAD text's control words. 
 syn match INSTEADStringControl contained "\[cut\]"
 syn match INSTEADStringControl contained "\[upd\]"
-"syn match INSTEADStringControl contained "{"
+syn match INSTEADStringControl contained "{"
   " Links: '{xact|text}', '{xact(arg)|text}', '{xact(' .. arg .. ')|text}'
 syn match INSTEADStringControl contained "{[a-zA-Z0-9_)(]\+[(|]"
   " Link's )| part
 syn match INSTEADStringControl contained ")|"
  " Link's text
 syn match INSTEADStringControl contained "{[а-яА-я"]*}"
-"syn match INSTEADStringControl contained "}"
+syn match INSTEADStringControl contained "}"
 syn match INSTEADSpecial contained "\^" 
 syn match INSTEADSpecial contained "\""
 
