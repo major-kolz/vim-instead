@@ -3,7 +3,7 @@
 " Maintainer:    Nikolay Konovalow <major.kolz 'at' gmail com>
 " First Author:  Carlos Augusto Teixeira Mendes <cmendes 'at' inf puc-rio br>
 " Second Author: Marcus Aurelius Farias <masserahguard-lua 'at' yahoo com>
-" Last Change:   2015 Feb 19
+" Last Change:   2015 Apr 18
 " Options:
 "       lua_version = 4 or 5
 "       lua_subversion = 0 (4.0, 5.0) or 1 (5.1) or 2 (5.2)
@@ -32,11 +32,11 @@ endif
 
 syn case match
 
-" syncing method
+" Syncing method: how many lines vim parse backward for avoiding mismatch in highlighting
 syn sync minlines=100
 
-" Comments
-syn keyword luaTodo     contained TODO FIXME XXX
+"=================================== Comments ========================================
+syn keyword luaTodo contained TODO FIXME XXX
 syn match   luaComment  "--.*$" contains=luaTodo,@Spell,INSTEADTags
 if lua_version == 5 && lua_subversion == 0
   syn region luaComment matchgroup=luaComment start="--\[\[" end="\]\]" contains=luaTodo,luaInnerComment,@Spell
@@ -48,18 +48,17 @@ endif
 
 " First line may start with #!
 syn match luaComment "\%^#!.*"
-" INSTEAD's header tags in comments
+" INSTEAD's header-tags in comments
 syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\|Version\):" end="\$" contains=@Spell
 
-" catch errors caused by wrong parenthesis and wrong curly brackets or
-" keywords placed outside their respective blocks
+"=================================== Brackets ========================================
 syn region luaParen transparent start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl,INSTEADSpecial,luaSpecial
 syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl
 
 syn match  luaParenError ")"
 syn match  luaBraceError "}"
 
-" Strings
+"=================================== Strings =========================================
   " INSTEAD text's control words. 
 syn match INSTEADStringControl contained "\[cut\]"
 syn match INSTEADStringControl contained "\[upd\]"
@@ -68,7 +67,7 @@ syn match INSTEADStringControl contained "{"
 syn match INSTEADStringControl contained "{[a-zA-Z0-9_)(]\+[(|]"
   " Link's )| part
 syn match INSTEADStringControl contained ")|"
- " Link's text
+  " Link's text
 syn match INSTEADStringControl contained "{[а-яА-я"]*}"
 syn match INSTEADStringControl contained "}"
 syn match INSTEADSpecial contained "\^" 
@@ -92,7 +91,7 @@ endif
 syn region luaString matchgroup=Normal start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=INSTEADSpecial,INSTEADStringControl,@Spell
 syn region luaSingleQuoteString start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaSpecial,INSTEADSpecial
 
-" Numbers
+"=================================== Numbers =========================================
   " Integer
 syn match luaNumber "\<\d\+\>"
   " Floating point number, with dot, optional exponent
@@ -110,40 +109,32 @@ if lua_version >= 5
   endif
 endif
 
-" Statements
-syn match  luaError "\<\%(end\|else\|elseif\|then\|until\|in\)\>"
-
-" function ... end
+"=================================== Constructions ===================================
+  " function ... end
 syn region luaFunctionBlock transparent matchgroup=luaFunction start="\<function\>" end="\<end\>" fold contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl,
-
-" if ... then
+  " if ... then
 syn region luaIfThen transparent matchgroup=luaCond start="\<if\>" end="\<then\>"me=e-4 contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaIn,INSTEADStringControl nextgroup=luaThenEnd skipwhite skipempty
-
-" then ... end
+  " then ... end
 syn region luaThenEnd contained transparent matchgroup=luaCond start="\<then\>" end="\<end\>" contains=ALLBUT,luaTodo,luaSpecial,luaThenEnd,luaIn,INSTEADStringControl
-
-" elseif ... then
+  " elseif ... then
 syn region luaElseifThen contained transparent matchgroup=luaCond start="\<elseif\>" end="\<then\>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl
-
-" else
+  " else
 syn keyword luaElse contained else
-
-" do ... end
+  " do ... end
 syn region luaBlock transparent matchgroup=luaStatement start="\<do\>" end="\<end\>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl
-
-" repeat ... until
+  " repeat ... until
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<repeat\>" end="\<until\>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl
-
-" while ... do
+  " while ... do
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<while\>" end="\<do\>"me=e-2 contains=ALLBUT,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl nextgroup=luaBlock skipwhite skipempty
-
-" for ... do and for ... in ... do
+  " for ... do and for ... in ... do
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<for\>" end="\<do\>"me=e-2 contains=ALLBUT,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,INSTEADStringControl nextgroup=luaBlock skipwhite skipempty
+  " Incomplete constructions 
+syn match  luaError "\<\%(end\|else\|elseif\|then\|until\|in\)\>"
 
 syn keyword luaIn contained in
 syn match luaPunctuation "\%(\.\.\|\.\)"
 
-" other keywords
+"=================================== Keywords ========================================
 syn keyword luaStatement return local break
 if lua_version > 5 || (lua_version == 5 && lua_subversion >= 2)
   syn keyword luaStatement goto
@@ -155,9 +146,6 @@ if lua_version > 4
   syn keyword luaConstant true false
 endif
 
-" Function
-  " User's
-"syn match luaFuncCall /\w\+\((\)\@=/ contained
   " Reserved 
 syn keyword luaFunc assert collectgarbage dofile error next
 syn keyword luaFunc print rawget rawset tonumber tostring type _VERSION
@@ -350,9 +338,27 @@ elseif lua_version == 5
   endif
 endif
 
-" Define the default highlighting.
-" For version 5.7 and earlier: only when not done already
-" For version 5.8 and later: only when an item doesn't have highlighting yet
+  " INSTEAD's keywords
+syn keyword luaFunc instead_version
+syn match   luaFunc "stead\.\<\%(scene_delim\|\)\>"
+syn keyword luaFuncCall take remove have put drop seen taken
+syn keyword luaFuncCall p pn pr
+syn keyword luaFuncCall time code walk rnd back visited visits walkin
+syn keyword luaFuncCall enable disable move disable_all enable_all disabled
+syn keyword luaFuncCall lifeon lifeoff live
+syn keyword luaFuncCall from seen exist
+syn keyword luaFuncCall vroom xact vway vobj
+syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
+syn keyword luaFuncCall set_music img restore_music
+syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
+  " <func> (...)
+  "        '...'
+  "       \"...\"
+syn region luaNormal matchgroup=luaFuncCall start=+\<\%(obj\|inv\|path\|objs\|ways\|here\|where\|me\|add\|del\)\>\s*[('"]+ end=+[)'"]+
+"=================================== Highlighting ====================================
+  " Define the default highlighting.
+  " For version 5.7 and earlier: only when not done already
+  " For version 5.8 and later: only when an item doesn't have highlighting yet
 if version >= 508 || !exists("did_lua_syntax_inits")
   if version < 508
     let did_lua_syntax_inits = 1
@@ -367,7 +373,7 @@ if version >= 508 || !exists("did_lua_syntax_inits")
   HiLink luaMultiLineString     String
   HiLink INSTEADTags            String
 "------------------------------------------
-  HiLink luaFunction		Function
+  HiLink luaFunction            Function
 "------------------------------------------
   HiLink luaFuncCall            FunCall
 "------------------------------------------
@@ -380,10 +386,10 @@ if version >= 508 || !exists("did_lua_syntax_inits")
   HiLink luaElse                Statement
   HiLink luaOperator            Statement
 "------------------------------------------
-  HiLink luaRepeat		Repeat
-  HiLink luaFor			Repeat
+  HiLink luaRepeat              Repeat
+  HiLink luaFor                 Repeat
 "------------------------------------------
-  HiLink luaTable		Structure
+  HiLink luaTable		           Structure
   HiLink luaPunctuation         Structure
 "------------------------------------------
   HiLink INSTEADSpecial         SpecialChar
@@ -391,25 +397,23 @@ if version >= 508 || !exists("did_lua_syntax_inits")
 "------------------------------------------
   HiLink INSTEADStringControl   Operator
 "------------------------------------------
-  HiLink luaError		Error
-  HiLink luaParenError		Error
+  HiLink luaError		           Error
+  HiLink luaParenError          Error
   HiLink luaBraceError          Error
 "------------------------------------------
   HiLink luaComment             Comment
 "------------------------------------------
-  HiLink luaFunc		Identifier
+  HiLink luaFunc                Identifier
   HiLink luaIn                  Identifier
 "------------------------------------------
   HiLink luaTODO                Todo
-
-"  HiLink luaLabel		Label
 
   " Не использованные: 
   " Delimiter, Special (не вижу чем эти двое отличаются; SpecialChar похоже)
   " Type, TypeDef 
   " Exception, Boolean (как Statement выглядит)
   " PreProc, Include
-  "
+  " Label
   delcommand HiLink
 endif
 
@@ -418,4 +422,4 @@ let b:current_syntax = "lua"
 let &cpo = s:cpo_save
 unlet s:cpo_save
 
-" vim: et ts=8 sw=2
+" vim: set ts=2 sw=2
