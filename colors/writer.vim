@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:	Nikolay Konovalow <major.kolz@gmail.com>
-" Last Change:	2015 Mar 9
+" Last Change:	2015 Apr 18
 
 " First remove all existing highlighting.
 set background=light
@@ -21,6 +21,7 @@ hi Character	guifg=#00ffff
 hi Constant    guifg=#00ffff 
 hi Number		guifg=#00ffff
 hi Function    guifg=#cfe7f5 gui=bold
+hi FunCall     guifg=#47b8b8 gui=italic
 hi Structure   guifg=#808080
 hi Comment		guifg=#aea79f
 hi Todo        guifg=blue    guibg=yellow
