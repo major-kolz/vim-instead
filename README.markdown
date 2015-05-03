@@ -10,7 +10,7 @@ and run INSTEAD with the current file.
 
 
 * ##### snippets/lua.snippets
-My snippets for [Vim](www.vim.org/). I use [vim-snipmate](https://github.com/garbas/vim-snipmate) plugin for play it. First part of the file contain pure Lua construction, second - INSTEAD-specify snippets. At the end you can see snippets for my useful.lua. Branched from [exelenter's](http://instead.syscall.ru/talk/index.php/member/36-excelenter) snippets ([his post](http://instead.syscall.ru/forum/viewtopic.php?id=407)). **Attention!** You should copy/make link for this file to *snippets* directory of SnipMate plugin (or to *.vim/snippets*).
+My snippets for [Vim](www.vim.org/). I use [vim-snipmate](https://github.com/garbas/vim-snipmate) plugin for play it. First part of the file contain pure Lua construction, second - INSTEAD-specify snippets. At the end you can see snippets for my useful.lua. Branched from [exelenter's](http://instead.syscall.ru/talk/index.php/member/36-excelenter) snippets ([his post](http://instead.syscall.ru/forum/viewtopic.php?id=407)). **Attention!** You should make link for this file (or copy it) to *snippets* directory of SnipMate plugin (or to *.vim/snippets*).
 
 * ##### pluggin/instead-ide.vim
 Some INSTEAD-specific autocreate functions
