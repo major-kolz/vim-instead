@@ -110,16 +110,18 @@ if lua_version >= 5
 endif
 
 "=================================== Constructions ===================================
+  " Incomplete constructions 
+syn match  luaError "\<\%(end\|else\|elseif\|then\|until\|in\)\>"
   " function ... end
 syn region luaFunctionBlock transparent matchgroup=luaFunction start="\<function\>" end="\<end\>" fold contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl,
-  " if ... then
-syn region luaIfThen transparent matchgroup=luaCond start="\<if\>" end="\<then\>"me=e-4 contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaIn,INSTEADStringControl nextgroup=luaThenEnd skipwhite skipempty
+   " else
+syn keyword luaElse contained else 
   " then ... end
 syn region luaThenEnd contained transparent matchgroup=luaCond start="\<then\>" end="\<end\>" contains=ALLBUT,luaTodo,luaSpecial,luaThenEnd,luaIn,INSTEADStringControl
   " elseif ... then
 syn region luaElseifThen contained transparent matchgroup=luaCond start="\<elseif\>" end="\<then\>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl
-  " else
-syn keyword luaElse contained else
+	" if ... then
+syn region luaIfThen transparent matchgroup=luaCond start="\<if\>" end="\<then\>"me=e-4 contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaIn,INSTEADStringControl nextgroup=luaThenEnd skipwhite skipempty
   " do ... end
 syn region luaBlock transparent matchgroup=luaStatement start="\<do\>" end="\<end\>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl
   " repeat ... until
@@ -128,8 +130,6 @@ syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<repeat\>" end=
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<while\>" end="\<do\>"me=e-2 contains=ALLBUT,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaIn,INSTEADStringControl nextgroup=luaBlock skipwhite skipempty
   " for ... do and for ... in ... do
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<for\>" end="\<do\>"me=e-2 contains=ALLBUT,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,INSTEADStringControl nextgroup=luaBlock skipwhite skipempty
-  " Incomplete constructions 
-syn match  luaError "\<\%(end\|else\|elseif\|then\|until\|in\)\>"
 
 syn keyword luaIn contained in
 syn match luaPunctuation "\%(\.\.\|\.\)"
@@ -351,10 +351,8 @@ syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music img restore_music
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
-  " <func> (...)
-  "        '...'
-  "       \"...\"
-syn region luaNormal matchgroup=luaFuncCall start=+\<\%(obj\|inv\|path\|objs\|ways\|here\|where\|me\|add\|del\)\>\s*[('"]+ end=+[)'"]+
+syn keyword luaFuncCall obj inv path objs ways here where me add del
+
 "=================================== Highlighting ====================================
   " Define the default highlighting.
   " For version 5.7 and earlier: only when not done already
