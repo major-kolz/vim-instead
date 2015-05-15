@@ -3,7 +3,7 @@
 " Maintainer:    Nikolay Konovalow <major.kolz 'at' gmail com>
 " First Author:  Carlos Augusto Teixeira Mendes <cmendes 'at' inf puc-rio br>
 " Second Author: Marcus Aurelius Farias <masserahguard-lua 'at' yahoo com>
-" Last Change:   2015 Apr 18
+" Last Change:   2015 May 15
 " Options:
 "       lua_version = 4 or 5
 "       lua_subversion = 0 (4.0, 5.0) or 1 (5.1) or 2 (5.2)
@@ -135,6 +135,23 @@ syn keyword luaIn contained in
 syn match luaPunctuation "\%(\.\.\|\.\)"
 
 "=================================== Keywords ========================================
+  " INSTEAD's keywords
+syn keyword luaFunc instead_version
+syn match   luaFunc "stead\.\<\%(scene_delim\|\)\>"
+syn keyword luaFuncCall take remove have put drop seen taken
+syn keyword luaFuncCall p pn pr
+syn keyword luaFuncCall time walk rnd back visited visits walkin
+syn keyword luaFuncCall enable disable move disable_all enable_all disabled
+syn keyword luaFuncCall lifeon lifeoff live
+syn keyword luaFuncCall from seen exist
+syn keyword luaFuncCall vroom xact vway vobj var
+syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
+syn keyword luaFuncCall set_music img restore_music
+syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
+syn keyword luaFuncCall obj inv path objs ways here where me add del
+syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]"
+
+  " Reserved 
 syn keyword luaStatement return local break
 if lua_version > 5 || (lua_version == 5 && lua_subversion >= 2)
   syn keyword luaStatement goto
@@ -146,7 +163,6 @@ if lua_version > 4
   syn keyword luaConstant true false
 endif
 
-  " Reserved 
 syn keyword luaFunc assert collectgarbage dofile error next
 syn keyword luaFunc print rawget rawset tonumber tostring type _VERSION
 
@@ -337,21 +353,6 @@ elseif lua_version == 5
     syn match luaFunc /\<debug\.upvaluejoin\>/
   endif
 endif
-
-  " INSTEAD's keywords
-syn keyword luaFunc instead_version
-syn match   luaFunc "stead\.\<\%(scene_delim\|\)\>"
-syn keyword luaFuncCall take remove have put drop seen taken
-syn keyword luaFuncCall p pn pr
-syn keyword luaFuncCall time code walk rnd back visited visits walkin
-syn keyword luaFuncCall enable disable move disable_all enable_all disabled
-syn keyword luaFuncCall lifeon lifeoff live
-syn keyword luaFuncCall from seen exist
-syn keyword luaFuncCall vroom xact vway vobj
-syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
-syn keyword luaFuncCall set_music img restore_music
-syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
-syn keyword luaFuncCall obj inv path objs ways here where me add del
 
 "=================================== Highlighting ====================================
   " Define the default highlighting.
