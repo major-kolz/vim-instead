@@ -149,7 +149,7 @@ syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music img restore_music
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
 syn keyword luaFuncCall obj inv path objs ways here where me add del
-syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]"
+syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,INSTEADStringControl
 
   " Reserved 
 syn keyword luaStatement return local break
@@ -261,6 +261,7 @@ elseif lua_version == 5
   elseif lua_subversion == 2
     syn match luaFunc /\<table\.pack\>/
     syn match luaFunc /\<table\.unpack\>/
+    syn match luaFunc /\<stead\.unpack\>/
   endif
   syn match   luaFunc /\<table\.concat\>/
   syn match   luaFunc /\<table\.sort\>/
