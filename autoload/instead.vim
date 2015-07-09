@@ -136,4 +136,17 @@ function! instead#Init()
 endfunction
 " 1}}}
 
+colorscheme writer
+"colorsheme peachpuff 
+highlight lCursor guifg=NONE guibg=DarkYellow
+set foldmethod=syntax
+
+imap <F5> <Esc><F5>
+imap <F6> <Esc><F6>
+imap <F7> <Esc><F7>
+nmap <C-c> :call MKC(0)<CR>
+imap <C-c> <Esc>:call MKC(1)<CR>
+
+nmap <leader>c :call MKC(0)<CR>`fh 
+
 " vim:foldmethod=marker

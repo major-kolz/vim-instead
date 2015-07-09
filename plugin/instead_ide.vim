@@ -4,11 +4,9 @@
 
 " Не завершено
 
-nmap <C-c> :call MKC(0)<CR>
-imap <C-c> <Esc>:call MKC(1)<CR>
 " ****************************** Описание ******************************
 " Функция авто-создания конструкции по ключевому слову под курсором (nmod) / перед курсором (imod)
-" Создается заготовка конструкции и размещаются метки ТУДА и ОБРАТНО
+" Создается заготовка конструкции и размещаются метки _f_ormard и _b_ack
 " @args: isImode указывает находимся ли в режиме вставки
 " ******************************  Логика  ******************************
 " В зависимости от блока, в котором оказалось обрабатываемое слово создаются следующие конструкции:
@@ -20,7 +18,8 @@ function MKC(isImode)
 	if a:isImode
 		normal b
 	endif
-	normal my
+	normal mb 	
+
 	let id = expand('<cWORD>')
 	let type = "undefined" 	" Тип создаваемой конструкции
 	
@@ -28,7 +27,7 @@ function MKC(isImode)
 		let type = 'xact'
 		let id = strpart( id, 1, match(id, '|' )-1 )		" Извлекаем имя xact
 		call ConstructXact(id)
-	elseif match(id, '{.*|.* ') != -1			" xact с пробелами, начало выраженя
+	elseif match(id, '{.*|.* ') != -1			" xact с пробелами, начало выражения
 		let type = 'xact'
 		let id = strpart( id, 1, match(id, '|' )-1 )
 		call ConstructXact(id)
@@ -74,7 +73,7 @@ function MKC(isImode)
 	endif
 
 	unlet l:id l:type 
-	normal 'y
+	normal `b
 	if a:isImode
 		normal e<Esc>
 	endif
@@ -84,18 +83,20 @@ endfunc
 " Функция авто-создания конструкции xact 
 " @args: nam - название xact
 " ******************************  Логика  ******************************
-" Ищем в текущем объекте\комнате список obj и добавляем xact первым элементом
+" Ищем в текущем объекте\комнате\диалога список obj и добавляем xact первым элементом
 " Если поиск провалился - создаем список obj в конце объекта\комнаты
-" Если xact принимает аргументы - создать xact( "id", code[[]] ),
-" Иначe - xact( "id", "" ),
+" Если xact принимает аргументы - создать xact( 'id', code[[]] ),
+" Иначe - xact( 'id', "" ),
 function ConstructXact( nam )
 	let xactPos = line(".")
 	for n in range( xactPos, 1, -1 )
+		" Ищем блок obj
 		let objBlock = match( getline(n), 'obj \{-0,1}= \{-0,1}{' )
 		if objBlock != -1 
 			let objBlock = n
 			break
 		endif
+		" Ищем заголовок (чтобы не выйти из области видимости объекта)
 		let defStart = match( getline(n), ' \{-0,1}= \{-0,1}.\{-3,4} \{-0,1}{' )
 		if defStart != -1
 			let defStart = n
@@ -103,7 +104,7 @@ function ConstructXact( nam )
 		endif
 	endfor
 	
-	if objBlock == -1										" Над ключевым словом нет блока obj = {}
+	if objBlock == -1                             " Над ключевым словом нет блока 'obj = {}', ищем под ним
 		call cursor( defStart, match( getline(defStart), '{' ) )
 		normal %
 		for n in range( line("."), xactPos, -1 )
@@ -117,20 +118,27 @@ function ConstructXact( nam )
 	
 	let withCode = match( a:nam, '(.*)' )
 	if withCode == -1
-		let construct = printf("\t\txact( \"%s\", \"\" ),", a:nam)
+		let construct = printf("\t\txact( '%s', \"_\" ),", a:nam)
+		let modifTextPos = match( construct, '"_' ) + 2 
 	else
-		let construct = strpart( a:nam, 0; withCode )
+		let construct = printf("\t\txact( '%s', code[[ return true ]] ),", strpart( a:nam, 0, withCode ))
+		let modifTextPos = match( construct, 'return true' ) + 1 
 	endif
 
-	if objBlock == -1										" Под ключевым словом нет блока obj = {} (создать)
+	if objBlock == -1                             " В текущем объекте (комнате/диалоге/...) нет блока 'obj = {}' (создаем)
 		let currLine = line(".")
+		objBlock = currLine
 		call append( currLine-1, "\tobj = {" )
 		call append( currLine, construct )
 		call append( currLine+1, "\t}," )
 		unlet l:currLine
-	else														" Добавить 
+	else                                          " Добавить 
 		call append( objBlock+1, construct )
 	endif
+	
+	" Поставим метку над вторым аргументом xact, чтобы его было можно менять
+	call cursor( objBlock+2, modifTextPos )
+	normal mf
 
-	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct
+	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos
 endfunction
