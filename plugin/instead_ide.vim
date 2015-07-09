@@ -88,6 +88,10 @@ endfunc
 " Если xact принимает аргументы - создать xact( 'id', code[[]] ),
 " Иначe - xact( 'id', "" ),
 function ConstructXact( nam )
+	" Очистим от возможного захваченного мусора (в случаях, когда xact расположен в начале строки)
+	let nam = substitute(a:nam, '{', '', '')
+	let nam = substitute(a:nam, '[', '', '')
+
 	let xactPos = line(".")
 	for n in range( xactPos, 1, -1 )
 		" Ищем блок obj
@@ -116,12 +120,12 @@ function ConstructXact( nam )
 		endfor
 	endif
 	
-	let withCode = match( a:nam, '(.*)' )
+	let withCode = match( nam, '(.*)' )
 	if withCode == -1
-		let construct = printf("\t\txact( '%s', \"_\" ),", a:nam)
+		let construct = printf("\t\txact( '%s', \"_\" ),", nam)
 		let modifTextPos = match( construct, '"_' ) + 2 
 	else
-		let construct = printf("\t\txact( '%s', code[[ return true ]] ),", strpart( a:nam, 0, withCode ))
+		let construct = printf("\t\txact( '%s', code[[ return true ]] ),", strpart( nam, 0, withCode ))
 		let modifTextPos = match( construct, 'return true' ) + 1 
 	endif
 
@@ -140,5 +144,5 @@ function ConstructXact( nam )
 	call cursor( objBlock+2, modifTextPos )
 	normal mf
 
-	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos
+	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos l:nam
 endfunction
