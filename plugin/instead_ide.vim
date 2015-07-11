@@ -25,20 +25,29 @@ function MKC(isImode)
 	
 	if match(id, '{.*|.*}') != -1					" xact без пробелов
 		let type = 'xact'
-		let id = strpart( id, match(id, '{')+1, match(id, '|' )-1 )		" Извлекаем имя xact
+		let start = match(id, '{')+1
+		let len = match(id, '|' ) - start 
+		let id = strpart( id, start, len )		" Извлекаем имя xact
+		unlet l:start l:len
 		call ConstructXact(id)
-	elseif match(id, '{.*|.* ') != -1			" xact с пробелами, начало выражения
+	elseif match(id, '{.*|.*') != -1				" xact с пробелами, начало выражения
 		let type = 'xact'
-		let id = strpart( id, match(id, '{')+1, match(id, '|' )-1 )
+		let start = match(id, '{')+1
+		let len = match(id, '|' ) - start 
+		let id = strpart( id, start, len )
+		unlet l:start l:len
 		call ConstructXact(id)
-	elseif match(id, '{.*}') != -1					" Ссылка в dsc на этот объект, пропускаем
-		let id = 0	
+	elseif match(id, '{.*}') != -1				" Ссылка в dsc на этот объект, пропускаем
+		let type = 'act-funct'
+		let id = '{}-button'	
 	elseif match(id, '.*}') != -1					" xact с пробелами, конец выражения
 		let type = 'xact'
 		let currLine = getline( line(".") )
 		let id = strpart( currLine, match(currLine, '{.*|.*') )	" Отрезаем от {<name> до конца строки
-		let id = strpart( id, match(id, '{')+1, match(id, '|' )-1	)				" Вырезаем <name>
-		unlet l:currLine
+		let start = match(id, '{')+1
+		let len = match(id, '|' ) - start 
+		let id = strpart( id, start, len )		" Извлекаем имя xact
+		unlet l:start l:len l:currLine
 		call ConstructXact(id)
 	elseif (match(id, '".*"') != -1) || 
 				\ (match(id, '\".*\"') != -1)		" Если id облачен в кавычки - нужно создать obj/room/way
@@ -53,13 +62,7 @@ function MKC(isImode)
 		
 		let id = strpart( id, 1, strlen(id)-3 )
 
-		if blockStart == 'obj'
-			let type  = 'obj'
-		elseif blockStart == 'room'
-			let type = 'room'
-		elseif blockStart == 'way'
-			let type = 'way'
-		endif
+		let type  = blockStart
 		unlet l:currLine l:blockStart
 	else														" Новая переменная
 		let type = 'variable'
@@ -69,7 +72,7 @@ function MKC(isImode)
 	if type == 'undefined'
 		echo "No construction for creating found"
 	else
-		"echo "Create new" "|".type."| for: " id
+		echo "Create new" "|".type."| for: " id
 	endif
 
 	unlet l:id l:type 
@@ -90,7 +93,6 @@ endfunc
 function ConstructXact( nam )
 	" Очистим от возможного захваченного мусора (в случаях, когда xact расположен в начале строки)
 
-	echo "Вывод " a:nam
 	let xactPos = line(".")
 	for n in range( xactPos, 1, -1 )
 		" Ищем блок obj
