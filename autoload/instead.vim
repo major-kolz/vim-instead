@@ -144,6 +144,7 @@ set foldmethod=syntax
 imap <F5> <Esc><F5>
 imap <F6> <Esc><F6>
 imap <F7> <Esc><F7>
+imap <F8> <Esc><F8>
 nmap <C-c> :call MKC(0)<CR>
 imap <C-c> <Esc>:call MKC(1)<CR>
 
