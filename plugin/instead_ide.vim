@@ -37,8 +37,15 @@ function MKC(isImode)
 		let id = strpart( id, start, len )
 		unlet l:start l:len
 		call ConstructXact(id)
+	elseif match(id, '{.*(') != -1				" xact с аргументами
+		let type = 'xact'
+		let start = match(id, '{')+1
+		let len = match(id, '(' ) - start 
+		let id = strpart( id, start, len )
+		unlet l:start l:len
+		call ConstructXact(id)
 	elseif match(id, '{.*}') != -1				" Ссылка в dsc на этот объект, пропускаем
-		let type = 'act-funct'
+		let type = "act call"
 		let id = '{}-button'	
 	elseif match(id, '.*}') != -1					" xact с пробелами, конец выражения
 		let type = 'xact'
@@ -121,7 +128,8 @@ function ConstructXact( nam )
 		endfor
 	endif
 	
-	let withCode = match( a:nam, '(.*)' )
+	" Если в вызове есть скобки - вторым аргументом точно будет code
+	let withCode = match( a:nam, '(' )
 	if withCode == -1
 		let construct = printf("\t\txact( '%s', \"_\" ),", a:nam)
 		let modifTextPos = match( construct, '"_' ) + 2 
@@ -137,12 +145,14 @@ function ConstructXact( nam )
 		call append( currLine, construct )
 		call append( currLine+1, "\t}," )
 		unlet l:currLine
-	else                                          " Добавить 
-		call append( objBlock+1, construct )
+	else                                          " Добавить
+		call cursor( objBlock, match( getline(objBlock), '{' ) )
+		normal %
+		call append( line(".")-1, construct )
 	endif
 	
 	" Поставим метку над вторым аргументом xact, чтобы его было можно менять
-	call cursor( objBlock+2, modifTextPos )
+	call cursor( line(".")-1, modifTextPos )
 	normal mf
 
 	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos
