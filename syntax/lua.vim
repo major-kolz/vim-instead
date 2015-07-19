@@ -3,7 +3,7 @@
 " Maintainer:    Nikolay Konovalow <major.kolz 'at' gmail com>
 " First Author:  Carlos Augusto Teixeira Mendes <cmendes 'at' inf puc-rio br>
 " Second Author: Marcus Aurelius Farias <masserahguard-lua 'at' yahoo com>
-" Last Change:   2015 May 15
+" Last Change:   2015 Jul 7
 " Options:
 "       lua_version = 4 or 5
 "       lua_subversion = 0 (4.0, 5.0) or 1 (5.1) or 2 (5.2)
@@ -137,13 +137,13 @@ syn match luaPunctuation "\%(\.\.\|\.\)"
 "=================================== Keywords ========================================
   " INSTEAD's keywords
 syn keyword luaFunc instead_version
-syn match   luaFunc "stead\.\<\%(scene_delim\|\)\>"
+syn match   luaFunc "stead\.\<\%(scene_delim\|unpack\)\>"
 syn keyword luaFuncCall take remove have put drop seen taken
 syn keyword luaFuncCall p pn pr
 syn keyword luaFuncCall time walk rnd back visited visits walkin
 syn keyword luaFuncCall enable disable move disable_all enable_all disabled
 syn keyword luaFuncCall lifeon lifeoff live
-syn keyword luaFuncCall from seen exist
+syn keyword luaFuncCall from seen exist ref deref
 syn keyword luaFuncCall vroom xact vway vobj var
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music img restore_music
@@ -261,7 +261,6 @@ elseif lua_version == 5
   elseif lua_subversion == 2
     syn match luaFunc /\<table\.pack\>/
     syn match luaFunc /\<table\.unpack\>/
-    syn match luaFunc /\<stead\.unpack\>/
   endif
   syn match   luaFunc /\<table\.concat\>/
   syn match   luaFunc /\<table\.sort\>/
