@@ -58,6 +58,11 @@ syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" conta
 syn match  luaParenError ")"
 syn match  luaBraceError "}"
 
+"================================ INSTEAD foldings ===================================
+syn region INSTEADObjBlock transparent matchgroup=luaTable start="way = {" end="}," fold
+syn region INSTEADObjBlock transparent matchgroup=luaTable start="var {" end="}," fold
+syn region INSTEADObjBlock transparent matchgroup=luaTable start="obj = {" end="}," fold
+
 "=================================== Strings =========================================
   " INSTEAD text's control words. 
 syn match INSTEADStringControl contained "\[cut\]"
@@ -145,11 +150,11 @@ syn keyword luaFuncCall time walk rnd back visited visits walkin
 syn keyword luaFuncCall enable disable move disable_all enable_all disabled
 syn keyword luaFuncCall lifeon lifeoff live
 syn keyword luaFuncCall from seen exist ref deref
-syn keyword luaFuncCall vroom xact vway vobj var
+syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music img restore_music
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
-syn keyword luaFuncCall obj inv path objs ways here where me add del
+syn keyword luaFuncCall inv path objs ways here where me add del
 syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,INSTEADStringControl
 
   " Reserved 
