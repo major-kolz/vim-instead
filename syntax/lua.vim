@@ -72,6 +72,7 @@ syn match INSTEADStringControl contained "{[а-яА-я"]*}"
 syn match INSTEADStringControl contained "}"
 syn match INSTEADSpecial contained "\^" 
 syn match INSTEADSpecial contained '\\"'
+syn match INSTEADSpecial contained '\\\\'
 
 if lua_version < 5
   syn match  luaSpecial contained "\\[\\abfnrtv\'\"]\|\\[[:digit:]]\{,3}"

@@ -58,11 +58,9 @@ first = obj{
 		end
 
 		if true then 					-- Правильно ли работает подсветка оператора выбора?
-			aoeu
-		elseif true then 
-			aoeu
+			aoeu()
 		else
-			aeu
+			aoeu()
 		end
 	end,
 };
@@ -74,6 +72,7 @@ second_game_room = room{
 		xact('xact_is_italic', code[[walk 'nonExistingRoom'; p "Конструкция code отлично подсвечивает код"]]);
 		xact('as_many_other_keywords', code [[ function() p "Количество пробелов между 'code' и '[[' - дело вкуса" end ]] )
 	}, 
+	stiring_match_ok = "\\" .. '"', "'"
 };
 
 -- TODO: 
