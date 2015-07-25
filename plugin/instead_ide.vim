@@ -56,8 +56,8 @@ function MKC(isImode)
 		let id = strpart( id, start, len )		" Извлекаем имя xact
 		unlet l:start l:len l:currLine
 		call ConstructXact(id)
-	elseif (match(id, '".*"') != -1) || 
-				\ (match(id, '\".*\"') != -1)		" Если id облачен в кавычки - нужно создать obj/room/way
+	elseif (match(id, "'.*'") != -1) || 
+				\ (match(id, "'.*'") != -1)		" Если id облачен в кавычки - нужно создать obj/room/way
 		for n in range( line("."), 1, -1 )
 			let currLine = getline( n )
 			let blockStart = match(currLine, '.\{-2,3} \{-0,1}= \{-0,1}{\| \{-0,1}function \{-0,1}(' )
@@ -66,12 +66,15 @@ function MKC(isImode)
 				break
 			endif
 		endfor
-		
-		let id = strpart( id, 1, strlen(id)-3 )
-
+		let start = match(id, "['\"]")+1
+		let len = match(id, "['\"][,;]") - start
+		let id = strpart( id, start, len )
 		let type  = blockStart
-		unlet l:currLine l:blockStart
-	else														" Новая переменная
+		if type == 'obj'
+			call ConstructObj(id)
+		endif
+		unlet l:currLine l:blockStart l:start l:len
+	else													" Новая переменная, функция
 		let type = 'variable'
 		"matchend() " last item of match
 	endif
@@ -79,7 +82,7 @@ function MKC(isImode)
 	if type == 'undefined'
 		echo "No construction for creating found"
 	else
-		echo "Create new" "|".type."| for: " id
+		"echo "Create new" "|".type."| for: " id
 	endif
 
 	unlet l:id l:type 
@@ -156,4 +159,13 @@ function ConstructXact( nam )
 	normal mf
 
 	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos
+endfunction
+
+function ConstructObj( nam )
+	normal )o
+	let curr = line(".")
+	call append( curr, a:nam . ' = obj' )
+	call cursor( curr+1, match( getline(curr+1), "obj" ) + 3 )
+	normal mf
+	unlet l:curr
 endfunction
