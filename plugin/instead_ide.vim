@@ -162,10 +162,20 @@ function ConstructXact( nam )
 endfunction
 
 function ConstructObj( nam )
-	normal )o
+	normal )
 	let curr = line(".")
+	if curr == line("$")
+		normal o
+		let curr = curr + 1
+	endif
+	
 	call append( curr, a:nam . ' = obj' )
 	call cursor( curr+1, match( getline(curr+1), "obj" ) + 3 )
 	normal mf
+
+	if line(".") != line("$")
+		normal o
+	endif
+
 	unlet l:curr
 endfunction
