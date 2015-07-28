@@ -26,23 +26,23 @@ function MKC(isImode)
 	if match(id, '{.*|.*}') != -1					" xact без пробелов
 		let type = 'xact'
 		let start = match(id, '{')+1
-		let len = match(id, '|' ) - start 
-		let id = strpart( id, start, len )		" Извлекаем имя xact
-		unlet l:start l:len
+		let length = match(id, '|' ) - start 
+		let id = strpart( id, start, length )		" Извлекаем имя xact
+		unlet l:start l:length
 		call ConstructXact(id)
 	elseif match(id, '{.*|.*') != -1				" xact с пробелами, начало выражения
 		let type = 'xact'
 		let start = match(id, '{')+1
-		let len = match(id, '|' ) - start 
-		let id = strpart( id, start, len )
-		unlet l:start l:len
+		let length = match(id, '|' ) - start 
+		let id = strpart( id, start, length )
+		unlet l:start l:length
 		call ConstructXact(id)
 	elseif match(id, '{.*(') != -1				" xact с аргументами
 		let type = 'xact'
 		let start = match(id, '{')+1
-		let len = match(id, '(' ) - start 
-		let id = strpart( id, start, len )
-		unlet l:start l:len
+		let length = match(id, '(' ) - start 
+		let id = strpart( id, start, length )
+		unlet l:start l:length
 		call ConstructXact(id)
 	elseif match(id, '{.*}') != -1				" Ссылка в dsc на этот объект, пропускаем
 		let type = "act call"
@@ -52,9 +52,9 @@ function MKC(isImode)
 		let currLine = getline( line(".") )
 		let id = strpart( currLine, match(currLine, '{.*|.*') )	" Отрезаем от {<name> до конца строки
 		let start = match(id, '{')+1
-		let len = match(id, '|' ) - start 
-		let id = strpart( id, start, len )		" Извлекаем имя xact
-		unlet l:start l:len l:currLine
+		let length = match(id, '|' ) - start 
+		let id = strpart( id, start, length )		" Извлекаем имя xact
+		unlet l:start l:length l:currLine
 		call ConstructXact(id)
 	elseif (match(id, "'.*'") != -1) || 
 				\ (match(id, "'.*'") != -1)		" Если id облачен в кавычки - нужно создать obj/room/way
@@ -67,13 +67,14 @@ function MKC(isImode)
 			endif
 		endfor
 		let start = match(id, "['\"]")+1
-		let len = match(id, "['\"][,;]") - start
-		let id = strpart( id, start, len )
-		let type  = blockStart
+		let length = matchend(id, "['\"].*['\"]") - start - 1  " -1 - for excluding ' or \"
+		let id = strpart( id, start, length )
+
+		let type = blockStart
 		if type == 'obj'
 			call ConstructObj(id)
 		endif
-		unlet l:currLine l:blockStart l:start l:len
+		unlet l:currLine l:blockStart l:start l:length
 	else													" Новая переменная, функция
 		let type = 'variable'
 		"matchend() " last item of match
@@ -82,7 +83,7 @@ function MKC(isImode)
 	if type == 'undefined'
 		echo "No construction for creating found"
 	else
-		"echo "Create new" "|".type."| for: " id
+		echo "Create new" "|".type."| for: " id
 	endif
 
 	unlet l:id l:type 
