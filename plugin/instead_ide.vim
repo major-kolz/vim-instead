@@ -163,7 +163,7 @@ function ConstructXact( nam )
 endfunction
 
 function ConstructObj( nam )
-	normal )
+	normal }
 	let curr = line(".")
 	if curr == line("$")
 		normal o
