@@ -17,3 +17,9 @@ Some INSTEAD-specific autocreate functions
 
 * ##### syntax/
 Advanced Lua highlighting
+
+###Preferences###
+All preferences is located at */autoload/instead.vim*
+
+* If you don't like my colorshame - change line 'colorsheme writer'
+* If you don't like *folding* - change line 'set foldmethod=syntax'

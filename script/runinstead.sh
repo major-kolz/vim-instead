@@ -5,6 +5,6 @@ if [ $2 ]; then
   wait $!
 fi
 gamespath=$1
-expression="instead -debug -gamespath $gamespath -game . &"
+expression="instead -debug -gamespath "$gamespath" -game . &"
 eval $expression
 echo $!
