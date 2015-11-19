@@ -59,8 +59,8 @@ syn match  luaParenError ")"
 syn match  luaBraceError "}"
 
 "================================ INSTEAD foldings ===================================
-syn region INSTEADObjBlock transparent matchgroup=luaTable start="way = {" end="}[,;]" fold
-syn region INSTEADObjBlock transparent matchgroup=luaTable start="obj = {" end="}[,;]" fold
+syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sway = {" end="}[,;]" fold
+syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sobj = {" end="}[,;]" fold
 syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="var {" end="}[,;]" fold 
 
 "=================================== Strings =========================================
