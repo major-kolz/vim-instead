@@ -61,7 +61,7 @@ syn match  luaBraceError "}"
 "================================ INSTEAD foldings ===================================
 syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sway = {" end="}[,;]" fold
 syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sobj = {" end="}[,;]" fold
-syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="var {" end="}[,;]" fold 
+syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="\<var {" end="}[,;]" fold 
 
 "=================================== Strings =========================================
   " INSTEAD text's control words. 
@@ -145,7 +145,7 @@ syn match luaPunctuation "\%(\.\.\|\.\)"
   " INSTEAD's keywords
 syn keyword luaFunc instead_version
 syn match   luaFunc "stead\.\<\%(scene_delim\|unpack\)\>"
-syn keyword luaFuncCall take remove have put drop seen taken
+syn keyword luaFuncCall take takef remove have put putf place placef placeto drop dropf seen taken
 syn keyword luaFuncCall p pn pr
 syn keyword luaFuncCall time walk rnd back visited visits walkin
 syn keyword luaFuncCall enable disable move disable_all enable_all disabled
