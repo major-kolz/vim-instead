@@ -153,7 +153,7 @@ syn keyword luaFuncCall lifeon lifeoff live
 syn keyword luaFuncCall from seen exist ref deref
 syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
-syn keyword luaFuncCall set_music img restore_music change_pl
+syn keyword luaFuncCall set_music set_sound sprite img restore_music change_pl
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
 syn keyword luaFuncCall inv path objs ways here where me add del
 syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,INSTEADStringControl
