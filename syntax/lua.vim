@@ -61,7 +61,8 @@ syn match  luaBraceError "}"
 "================================ INSTEAD foldings ===================================
 syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sway = {" end="}[,;]" fold
 syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sobj = {" end="}[,;]" fold
-syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="\<var {" end="}[,;]" fold 
+syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="\<var\ *{" end="}[,;]" fold 
+syn region INSTEADObjBlock transparent matchgroup=luaFuncCall start="\<global\ *{" end="}" fold 
 
 "=================================== Strings =========================================
   " INSTEAD text's control words. 
@@ -156,7 +157,8 @@ syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music set_sound sprite img restore_music change_pl
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
-syn keyword luaFuncCall inv path objs ways here where me add del
+syn keyword luaFuncCall inv path objs ways here where add del
+syn match luaFuncCall "\<\(me\|from\)\ *{"
 syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,INSTEADStringControl
 
   " Reserved 
