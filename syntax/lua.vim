@@ -33,7 +33,7 @@ endif
 syn case match
 
 " Syncing method: how many lines vim parse backward for avoiding mismatch in highlighting
-syn sync minlines=100
+syn sync minlines=50
 
 "=================================== Comments ========================================
 syn keyword luaTodo contained TODO FIXME XXX
