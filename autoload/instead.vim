@@ -149,5 +149,7 @@ nmap <C-c> :call MKC(0)<CR>
 imap <C-c> <Esc>:call MKC(1)<CR>
 
 nmap <leader>c :call MKC(0)<CR>`fh 
+" Form xact-link on current word
+nmap <leader>x ea}<Esc>bi{\|<Esc>i
 
 " vim:foldmethod=marker
