@@ -146,16 +146,17 @@ syn match luaPunctuation "\%(\.\.\|\.\)"
 "=================================== Keywords ========================================
   " INSTEAD's keywords
 syn keyword luaFunc instead_version
-syn match   luaFunc "stead\.\<\%(scene_delim\|unpack\|add_var\)\>"
+syn match   luaFunc "stead\.\<\%(scene_delim\|unpack\|add_var\|restart\)\>"
 syn keyword luaFuncCall take takef remove have put putf place placef placeto drop dropf seen taken
 syn keyword luaFuncCall p pn pr
 syn keyword luaFuncCall time walk rnd back visited visits walkin
 syn keyword luaFuncCall enable disable move disable_all enable_all disabled
-syn keyword luaFuncCall lifeon lifeoff live
-syn keyword luaFuncCall from seen exist ref deref
+syn keyword luaFuncCall lifeon lifeoff live sprite img 
+syn keyword luaFuncCall seen exist ref deref change_pl
 syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
-syn keyword luaFuncCall set_music set_sound sprite img restore_music change_pl
+syn keyword luaFuncCall set_music restore_music is_music stop_music
+syn keyword luaFuncCall set_sound  stop_sound add_sound
 syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst
 syn keyword luaFuncCall path objs ways here where add del
 syn match luaFuncCall "\<\(me\|from\|inv\)\ *\((\)\@="
