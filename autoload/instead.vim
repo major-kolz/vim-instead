@@ -137,7 +137,6 @@ endfunction
 " 1}}}
 
 colorscheme writer
-"colorsheme peachpuff 
 highlight lCursor guifg=NONE guibg=DarkYellow
 set foldmethod=syntax
 
