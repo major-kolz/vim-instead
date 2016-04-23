@@ -3,7 +3,7 @@
 " Maintainer:    Nikolay Konovalow <major.kolz 'at' gmail com>
 " First Author:  Carlos Augusto Teixeira Mendes <cmendes 'at' inf puc-rio br>
 " Second Author: Marcus Aurelius Farias <masserahguard-lua 'at' yahoo com>
-" Last Change:   2015 Jul 7
+" Last Change:   2016 Apr 23
 " Options:
 "       lua_version = 4 or 5
 "       lua_subversion = 0 (4.0, 5.0) or 1 (5.1) or 2 (5.2)
