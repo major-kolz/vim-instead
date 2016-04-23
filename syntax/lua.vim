@@ -33,7 +33,7 @@ endif
 syn case match
 
 " Syncing method: how many lines vim parse backward for avoiding mismatch in highlighting
-syn sync minlines=50
+syn sync minlines=250
 
 "=================================== Comments ========================================
 syn keyword luaTodo contained TODO FIXME XXX
@@ -79,6 +79,7 @@ syn match INSTEADStringControl contained "}"
 syn match INSTEADSpecial contained "\^" 
 syn match INSTEADSpecial contained '\\"'
 syn match INSTEADSpecial contained '\\\\'
+	" For my _say function
 syn match INSTEADSpecial contained '@[a-zA-Z_]*'
 syn region INSTEADCutsceneCode contained matchgroup=luaFuncCall start="\[code" end="\]" contains=luaFuncCall
 
@@ -98,7 +99,7 @@ elseif lua_version == 5
   endif
 endif
 syn region luaString matchgroup=Normal start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=INSTEADSpecial,INSTEADStringControl,@Spell
-syn region luaSingleQuoteString start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaSpecial,INSTEADSpecial
+syn region luaSingleQuoteString start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaSpecial
 
 "=================================== Numbers =========================================
   " Integer
