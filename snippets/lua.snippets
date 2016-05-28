@@ -108,31 +108,21 @@ snippet insteadbegin
 	--$Name: ${1:Game name}$
 	--$Version: 0.1$
 	--$Author: ${2:Author}$
-
+	
 	instead_version "`system("instead -version")`";
-
+	
 	require 'xact'
 	require 'format'
 	format.para   = true;   -- Отступы в начале абзаца;
 	format.dash   = true;   -- Замена двойного минуса на длинное тире;
 	format.quotes = true;   -- Замена " " на типографские << >>;
-
+	
 	require 'useful'        -- Набор полезных функций
-
+	
 	main = room {
-		nam = '...',
-		forcedsc = true;
-		dsc = txtr [["$1"]] .. txtr[[^Автор: $2]] ..
-			[[${3}]]
-			.. [[^^Если это ваша первая {instead|INSTEAD}-игра - пройдите сперва {intro|обучение}.]],
-		obj = {
-			vway( 'next', "^^^^^^^^^^^^{> Начать игру!}", '${4:first_game_room}' ),
-			xact( 'instead', "http://instead.syscall.ru/" ),
-			xact( 'intro', "Для перехода нажмите Esc, выберите пункт \"Выбор игры\" и \"Обучение\"" );
-		},
+		${3}
 	};
-
-	$4 = room${5}
+	
 #
 # ===Базовые конструкции
 snippet room
@@ -299,7 +289,7 @@ snippet way
 	},
 snippet var
 	var {
-		${1:-- Variables}
+		${0:-- Variables}
 	},
 #
 # ===Булевы поля

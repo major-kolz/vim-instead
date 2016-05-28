@@ -136,6 +136,51 @@ function! instead#Init()
 endfunction
 " 1}}}
 
+function! instead#smartTableAdd()
+	" If add table as field to other table, add comma after it
+	" Also, 'expand' space between brackets:
+	"   {<Ctrl+Enter>}
+	"   will transform to:
+	"   {
+	"   	<cursor here>
+	"   }
+	let l:currLine = getline(line("."))
+	if match(l:currLine, "\t") == -1
+		call feedkeys("a\<CR>\<Esc>O")
+	else
+		let l:isObj = 1
+		let l:openFunc = 0
+		let l:closeFunc = 0
+		let l:otherStatment = 0
+		for iter in range(line(".")-1, 1, -1)
+			let l:currLine = getline(iter)
+			if match(l:currLine, '\<function\>') != -1
+				let l:openFunc = l:openFunc + 1
+			endif
+			if match(l:currLine, '\<end\>') != -1
+				let l:closeFunc = l:closeFunc + 1
+			endif
+			if match(l:currLine, '\<\(if\|while\|for\)\>') != -1
+				let l:otherStatment = l:otherStatment + 1
+			endif
+
+			if l:openFunc + l:otherStatment - l:closeFunc > 0
+				let l:isObj = 0
+				break
+			endif
+			if match(l:currLine, "\t") == -1
+				break
+			endif
+		endfor
+
+		if l:isObj == 1
+			call feedkeys("a\<CR>\<Esc>la,\<Esc>O")
+		else
+			call feedkeys("a\<CR>\<Esc>O")
+		endif
+	endif
+endfunction
+
 colorscheme writer
 highlight lCursor guifg=NONE guibg=DarkYellow
 set foldmethod=syntax
@@ -150,5 +195,7 @@ imap <C-c> <Esc>:call MKC(1)<CR>
 nmap <leader>c :call MKC(0)<CR>`fh 
 " Form xact-link on current word
 nmap <leader>x ea}<Esc>bi{\|<Esc>i
+" Smart table insertion (add comma if it other table field)
+imap <C-Cr> <Esc>:call instead#smartTableAdd()<CR>
 
 " vim:foldmethod=marker

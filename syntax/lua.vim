@@ -55,8 +55,8 @@ syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\
 syn region luaParen transparent start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl,INSTEADSpecial,luaSpecial
 syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl
 
-syn match  luaParenError ")"
-syn match  luaBraceError "}"
+syn match luaParenError ")"
+syn match luaBraceError "}"
 
 "================================ INSTEAD foldings ===================================
 syn region INSTEADObjBlock transparent matchgroup=luaTable start="\sway = {" end="}[,;]" fold
