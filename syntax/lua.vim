@@ -53,7 +53,7 @@ syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\
 
 "=================================== Brackets ========================================
 syn region luaParen transparent start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl,INSTEADSpecial,luaSpecial
-syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl
+syn region luaTableBlock transparent matchgroup=luaTable start="{" end="}" fold contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl
 
 syn match luaParenError ")"
 syn match luaBraceError "}"
@@ -158,7 +158,7 @@ syn keyword luaFuncCall vroom xact vway vobj
 syn keyword luaFuncCall pon poff prem pseen punseen psub pjump pstart
 syn keyword luaFuncCall set_music restore_music is_music stop_music
 syn keyword luaFuncCall set_sound  stop_sound add_sound
-syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txtem txtu txtst txtnb txttab
+syn keyword luaFuncCall txtc txtr txtl txttop txtbottom txtmiddle txtb txty txtem txtu txtst txtnb txttab
 syn keyword luaFuncCall path objs ways here where add del
 syn match luaFuncCall "\<\(me\|from\|inv\)\ *\((\)\@="
 syn region _noMatterName_ transparent matchgroup=luaFuncCall start="\<code\ *\[\[" end="\]\]" contains=ALLBUT,luaBraceError,luaTodo,luaSpecial,INSTEADStringControl
@@ -178,6 +178,7 @@ endif
 syn keyword luaFunc assert collectgarbage dofile error next
 syn keyword luaFunc print rawget rawset tonumber tostring type _VERSION
 
+syn match luaFunc ":format"
 if lua_version == 4
   syn keyword luaFunc _ALERT _ERRORMESSAGE gcinfo
   syn keyword luaFunc call copytagmethods dostring

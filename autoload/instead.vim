@@ -136,7 +136,7 @@ function! instead#Init()
 endfunction
 " 1}}}
 
-function! instead#smartTableAdd()
+function! instead#addTableSmart()
 	" If add table as field to other table, add comma after it
 	" Also, 'expand' space between brackets:
 	"   {<Ctrl+Enter>}
@@ -195,7 +195,9 @@ imap <C-c> <Esc>:call MKC(1)<CR>
 nmap <leader>c :call MKC(0)<CR>`fh 
 " Form xact-link on current word
 nmap <leader>x ea}<Esc>bi{\|<Esc>i
+" unfold snippet, but change to russian first
+imap <S-Tab> <Esc>:set iminsert=1<CR>a<Tab>
 " Smart table insertion (add comma if it other table field)
-imap <C-Cr> <Esc>:call instead#smartTableAdd()<CR>
+imap <C-Cr> <Esc>:call instead#addTableSmart()<CR>
 
 " vim:foldmethod=marker

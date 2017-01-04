@@ -8,7 +8,7 @@
 snippet inc
 	${1:<var>} = $1 + ${2:1};
 snippet n=
-	~= ${1}
+	~= ${0}
 snippet ret
 	return ${1:true};
 snippet for
@@ -122,7 +122,6 @@ snippet insteadbegin
 	main = room {
 		${3}
 	};
-	
 #
 # ===Базовые конструкции
 snippet room
@@ -302,7 +301,7 @@ snippet nolife
 #
 # ===Вспомогательные конструкции
 snippet p
-	p [[${1:Text}]];
+	p [[${0}]];
 snippet p(
 	p( "${1} " .. ${2} );
 snippet p{
