@@ -14,7 +14,7 @@
 " 2. obj		 -  заготовка объекта.
 " 3. ссылка  -  xact
 " 4. функция -  var-переменная (с инициализацией по-умолчанию)   
-function MKC(isImode)
+function! MKC(isImode)
 	if a:isImode
 		normal b
 	endif
@@ -101,7 +101,7 @@ endfunc
 " Если поиск провалился - создаем список obj в конце объекта\комнаты
 " Если xact принимает аргументы - создать xact( 'id', code[[]] ),
 " Иначe - xact( 'id', "" ),
-function ConstructXact( nam )
+function! ConstructXact( nam )
 	" Очистим от возможного захваченного мусора (в случаях, когда xact расположен в начале строки)
 
 	let xactPos = line(".")
@@ -162,7 +162,7 @@ function ConstructXact( nam )
 	unlet l:xactPos l:objBlock l:defStart l:withCode l:construct l:modifTextPos
 endfunction
 
-function ConstructObj( nam )
+function! ConstructObj( nam )
 	normal }
 	let curr = line(".")
 	if curr == line("$")

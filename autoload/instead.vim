@@ -199,5 +199,3 @@ nmap <leader>x ea}<Esc>bi{\|<Esc>i
 imap <S-Tab> <Esc>:set iminsert=1<CR>a<Tab>
 " Smart table insertion (add comma if it other table field)
 imap <C-Cr> <Esc>:call instead#addTableSmart()<CR>
-
-" vim:foldmethod=marker
