@@ -332,7 +332,7 @@ snippet init
 snippet xact
 	xact( '${1:id}', "${2}" ),
 snippet xacd
-	xact( '${1:id}', code[[${2:action}]] ),
+	xact( '${1:id}', code[[ ${2:action}; return true ]] ),
 snippet code
 	code[[${1}]]${2:;}
 snippet click

@@ -49,7 +49,7 @@ endif
 " First line may start with #!
 syn match luaComment "\%^#!.*"
 " INSTEAD's header-tags in comments
-syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\|Version\):" end="\$" contains=@Spell
+syn region INSTEADTags contained matchgroup=luaComment start="\$\%(Name\|Author\|Version\|Info\):" end="\$" contains=@Spell
 
 "=================================== Brackets ========================================
 syn region luaParen transparent start='(' end=')' contains=ALLBUT,luaParenError,luaTodo,luaSpecial,luaIfThen,luaElseifThen,luaElse,luaThenEnd,luaBlock,luaLoopBlock,luaIn,luaStatement,INSTEADStringControl,INSTEADSpecial,luaSpecial

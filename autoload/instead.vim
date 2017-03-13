@@ -1,4 +1,3 @@
-
 " INSTEAD functions
 
 " instead#GrepInsteadObjects(obj) {{{1
@@ -180,6 +179,10 @@ function! instead#addTableSmart()
 		endif
 	endif
 endfunction
+
+"=== Configure xolox/vim-lua-ftplugin
+let g:lua_complete_omni = 1
+let g:lua_safe_omni_modules = 1  " Track, if module cause side effects
 
 colorscheme writer
 highlight lCursor guifg=NONE guibg=DarkYellow
