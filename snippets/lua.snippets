@@ -90,6 +90,10 @@ snippet ;l
 snippet ;н
 	,
 	"${1}";
+snippet ii
+	<i>${1}</i>${0}
+snippet bb
+	<b>${1}</b>${0}
 #
 # ===Разграничение блоков кода
 snippet --=
@@ -107,38 +111,37 @@ snippet --=2
 snippet insteadbegin
 	--$Name: ${1:Game name}$
 	--$Version: 0.1$
-	--$Author: ${2:Author}$
+	--$Author: Николай Коновалов$
 	
-	instead_version "`system("instead -version")`";
+	require 'fmt'
+	fmt.para = true;  -- Отступы в начале абзаца;
 	
-	require 'xact'
-	require 'format'
-	format.para   = true;   -- Отступы в начале абзаца;
-	format.dash   = true;   -- Замена двойного минуса на длинное тире;
-	format.quotes = true;   -- Замена " " на типографские << >>;
-	
-	require 'useful'        -- Набор полезных функций
-	
-	main = room {
-		${3}
+	room {
+		name = "main",
+		${2}
 	};
 #
 # ===Базовые конструкции
 snippet room
-	room{
-		nam = "${1}",
-		dsc = [[${2}]],
+	room {
+		nam = '${1}',
+		disp = "${2}",
+		dsc = [[${3}]],
+		way = {
+			${4}
+		}, 
 		obj = {
-			${3}
-		}, ${4}
+			${5}
+		}, ${0}
 	};
 snippet obj
-	obj{
+	obj {
 		nam = "${1}",
-		dsc = [[${2} {${3}} ${4}]],
+		disp = "${2}",
+		dsc = [[${3}]],
 		act = function(s)
-			${5}
-		end,${6}
+			${4}
+		end,${0}
 	};
 snippet objt fun desc
 	obj{

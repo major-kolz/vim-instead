@@ -25,3 +25,4 @@ hi FunCall     guifg=#47b8b8 gui=italic
 hi Structure   guifg=#808080
 hi Comment		guifg=#aea79f
 hi Todo        guifg=blue    guibg=yellow
+hi STEAD       guifg=#3ac4a2

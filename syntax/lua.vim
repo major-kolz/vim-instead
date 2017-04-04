@@ -70,7 +70,7 @@ syn match INSTEADStringControl contained "\[cut\]"
 syn match INSTEADStringControl contained "\[upd\]"
 syn match INSTEADStringControl contained "{"
   " Links: '{xact|text}', '{xact(arg)|text}', '{xact(' .. arg .. ')|text}'
-syn match INSTEADStringControl contained "{[a-zA-Z0-9_)(]\+[(|]"
+syn match INSTEADStringControl contained "{[a-zA-Z0-9_)(#]\+[(|]"
   " Link's )| part
 syn match INSTEADStringControl contained ")|"
   " Link's text
@@ -143,6 +143,9 @@ syn region luaLoopBlock transparent matchgroup=luaRepeat start="\<for\>" end="\<
 
 syn keyword luaIn contained in
 syn match luaPunctuation "\%(\.\.\|\.\)"
+
+
+syn match STEAD3_getObj "_'.*'"
 
 "=================================== Keywords ========================================
   " INSTEAD's keywords
@@ -419,6 +422,8 @@ if version >= 508 || !exists("did_lua_syntax_inits")
   HiLink luaIn                  Identifier
 "------------------------------------------
   HiLink luaTODO                Todo
+"------------------------------------------
+  HiLink STEAD3_getObj          STEAD
 
   " Не использованные: 
   " Delimiter, Special (не вижу чем эти двое отличаются; SpecialChar похоже)

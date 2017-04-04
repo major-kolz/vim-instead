@@ -202,3 +202,7 @@ nmap <leader>x ea}<Esc>bi{\|<Esc>i
 imap <S-Tab> <Esc>:set iminsert=1<CR>a<Tab>
 " Smart table insertion (add comma if it other table field)
 imap <C-Cr> <Esc>:call instead#addTableSmart()<CR>
+
+" Change keyboards layout and create something
+imap <C-'> ""<Esc>:set iminsert=1<CR>i
+imap <C--> _''<Esc>:set iminsert=1<CR>i
